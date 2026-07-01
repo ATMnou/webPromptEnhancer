@@ -73,6 +73,14 @@ const I18N = {
         title: "트롤지 스타일 이미지 프롬프트",
         description: "기괴하고 불쾌한 분위기의 프롬프트로 변환합니다.",
       },
+      generalimage: {
+        title: "범용 이미지 프롬프트",
+        description: "단순한 아이디어를 상세한 이미지 생성 프롬프트로 변환합니다.",
+      },
+      generalvideo: {
+        title: "범용 비디오 프롬프트",
+        description: "단순한 아이디어를 상세한 비디오 생성 프롬프트로 변환합니다.",
+      },
     },
   },
   en: {
@@ -148,6 +156,14 @@ const I18N = {
       trollgefiles: {
         title: "Trollge Style Image Prompt",
         description: "Transforms simple ideas into grotesque, unsettling image prompts.",
+      },
+      generalimage: {
+        title: "General Image Prompt",
+        description: "Transforms simple ideas into detailed image generation prompts.",
+      },
+      generalvideo: {
+        title: "General Video Prompt",
+        description: "Transforms simple ideas into detailed video generation prompts.",
       },
     },
   },
@@ -262,6 +278,82 @@ A sinister, humanoid clown stands centered in the foreground, rendered in a styl
 
 Example 3:
 This digital illustration features a tall, slender, humanoid figure with a skeletal, pitch-black body standing against a dark, textured grey wall. The entity possesses an oversized, pale troll-face mask with a wide, exaggerated grin and deep-set eyes. It holds a boxy, vintage television above its head with thin arms, displaying static on its screen. The scene is illuminated by a dim, moody light that casts no strong shadows, enhancing the eerie, surreal atmosphere. The artistic style is reminiscent of modern internet horror aesthetics, characterized by stark monochrome tones and a minimalist, unsettling composition.
+Source: ${source}`,
+      ].join("\n"),
+  },
+  {
+    id: "generalimage",
+    systemInstruction: "Make detailed natural language Image generation prompt in English based on Source.",
+    userTemplate: ({ source }) =>
+      [
+        `Your response will only be the prompt, nothing else.
+Source: ${source}`,
+      ].join("\n"),
+  },
+  {
+    id: "generalvideo",
+    systemInstruction: "You are a helpful assistant that refines and enhances prompts for video generation models",
+    userTemplate: ({ source }) =>
+      [
+        `
+Your task is to take the user's attached image, and based on the image create a natural animation prompt. Produce detailed, and actionable prompt that can be effectively used by an video generation model to create the desired output.
+            
+General Guidelines
+Use natural language to describe specific actions — avoid abstract concepts or keyword-stuffed phrases like in traditional AI image generation.
+
+✅ "The girl slowly lifts her right hand to adjust her sunglasses."
+❌ "Girl, hand, sunglasses, cool pose, stylish."
+❌ "Doing something cool with her hands."
+Focus on one action per shot. Don't describe multiple actions in a single prompt, or the model may not be able to complete them within 5 seconds.
+
+✅ "The man waves his hand and smiles at the camera."
+❌ "The man walks into the room, picks up a book, reads a bit, then waves."
+❌ "She turns, waves, and jumps in excitement."
+Be specific about which body parts are involved, what kind of clothing is worn, and what exactly is happening — avoid vague terms like 'clothes'.
+
+✅ "She pulls down the hood of her gray hoodie with both hands."
+❌ "She fixes her clothes."
+❌ "The character interacts with her outfit."
+Avoid overly complex or large movements for now, such as bending over or torso twisting, as they may result in glitches or fail to render properly.
+
+✅ "He raises his left arm and points forward."
+❌ "She bends down to tie her shoes."
+❌ "The dancer spins twice and stretches backward."
+
+Examples
+✅ Clear, specific action with natural phrasing, The woman winks at the camera while gently adjusting her hair.
+
+🟡 Action is completed but feels vague or disconnected. A young man raises his arm and looks down at his wristwatch.
+
+🟥 Too many actions stacked; difficult to complete in time. The woman kneels down, opens a backpack, takes out a book, and waves.
+
+🟥 Multiple steps, only the first action may be completed. The child bounces a ball and then tries to jump and spin.
+
+🟥 Too slow; the action doesn't finish in 5 seconds. The man slowly opens a wrapped gift box, carefully lifting the lid and removing the ribbon.
+
+🟥 Too vague; lacks body part or clothing details. Subject adjusts their outfit and interacts with it.
+
+Example:
+Original Prompt: "A Viking warrior wields a
+great axe with both hands,
+battling a mammoth at dusk,
+amidst a snowy landscape
+with snowflakes swirling in
+the air."
+
+Enhanced: "An epic battle scene, unfolds as a tall and muscular Viking war-
+rior wields a heavy great axe with both hands, facing off against
+a massive mammoth. The warrior is clad in leather armor and a
+horned helmet, with prominent muscles and a fierce, determined
+expression. The mammoth is covered in long hair, with sharp
+tusks, and roars angrily. It is dusk, and the snowy landscape is
+filled with swirling snowflakes, creating an intense and dramatic
+atmosphere. The backdrop features a barren ice field with the
+faint outlines of distant mountains. The use of cool-toned light-
+ing emphasizes strength and bravery. The scene is captured in a
+dynamic close-up shot from a high-angle perspective."
+
+Your response should be only a single, coherent paragraph of prompt. Avoid adding new concepts that are not present in the original prompt, and do not include any meta commentary or instructions in your response.
 Source: ${source}`,
       ].join("\n"),
   },
