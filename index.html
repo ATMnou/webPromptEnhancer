@@ -75,9 +75,15 @@
         <div id="prompt-options" class="radio-list"></div>
       </section>
 
-      <section class="card" aria-labelledby="input-title">
+      <section class="card" id="source-card" aria-labelledby="input-title">
         <h2 id="input-title" data-i18n="input.title">원본 프롬프트</h2>
         <textarea id="source-prompt" rows="8" placeholder="개선하고 싶은 프롬프트를 입력하세요..." data-i18n-placeholder="input.placeholder"></textarea>
+        <div class="attach-row">
+          <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden />
+          <button id="attach-btn" type="button" class="ghost-btn" data-i18n="actions.attachImage">이미지 첨부</button>
+          <span class="hint attach-hint" data-i18n="input.attachHint">PNG · JPG · WEBP · GIF, 최대 4장 — 버튼 클릭, 드래그앤드롭, Ctrl+V로 첨부</span>
+        </div>
+        <div id="image-preview" class="image-preview is-empty" aria-live="polite"></div>
         <div class="action-row">
           <button id="enhance-btn" type="button" class="primary-btn" data-i18n="actions.enhance">프롬프트 개선 실행</button>
           <span id="status-text" class="status"></span>
